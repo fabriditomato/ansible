@@ -4,6 +4,7 @@
     name:
       - zsh
       - fzf
+      - libpq
     state: present
     update_homebrew: yes
   tags:
