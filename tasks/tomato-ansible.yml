@@ -1,0 +1,27 @@
+# ===================== Project: Ansible =====================
+- name: Ensure projects directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/projects"
+    state: directory
+    mode: '0755'
+  tags:
+    - tomato-sway
+
+- name: Clone Ansible Sway repository
+  git:
+    repo: 'git@github.com:fabriditomato/ansible.git' 
+    dest: "{{ ansible_env.HOME }}/projects/ansible"
+    version: main
+    accept_hostkey: yes
+  environment:
+    GIT_SSH_COMMAND: "ssh -vvv"
+  register: git_clone_result
+  tags:
+    - prj-ansible-sway
+
+- name: Debug Git clone result
+  debug:
+    var: git_clone_result
+  tags:
+    - prj-ansible-sway
+

@@ -30,6 +30,10 @@
       tags:
         - nvm 
 
+    - include_tasks: tasks/tomato-ansible.yml
+      tags:
+        - tomato
+
     - include_tasks: tasks/tomato-frontend.yml
       tags:
         - tomato
