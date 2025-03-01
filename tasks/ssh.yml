@@ -1,44 +1,39 @@
-# ===================== SSH Configuration =====================
-- name: Ensure .ssh directory exists
+- name: Clone tomato-frontend-2.0 repository
+  git:
+    repo: 'git@github.com:tomatoai-dev/tomato-frontend-2.0.git'
+    dest: "{{ ansible_env.HOME }}/projects/front"
+    version: dev
+    accept_hostkey: yes
+  environment:
+    GIT_SSH_COMMAND: "ssh -vvv"
+  register: git_clone_result
+  tags: tomato
+
+- name: Clone private Gist for .env file
+  git:
+    repo: 'git@gist.github.com:d72a1ba1da432efcbe5d6bc522a5bbde.git'
+    dest: "{{ ansible_env.HOME }}/projects/front/gist_env"
+    version: main
+    accept_hostkey: yes
+  environment:
+    GIT_SSH_COMMAND: "ssh -vvv"
+  register: gist_clone_result
+  tags: tomato
+
+- name: Copy .env file from cloned Gist
+  command: cp gist_env/.env .env
+  args:
+    chdir: "{{ ansible_env.HOME }}/projects/front"
+  tags: tomato
+
+- name: Remove Gist directory
   file:
-    path: "{{ lookup('env', 'HOME') }}/.ssh"
-    state: directory
-    mode: '0700'
-  tags:
-    - ssh
+    path: "{{ ansible_env.HOME }}/projects/front/gist_env"
+    state: absent
+  tags: tomato
 
-- name: Copy SSH private keys
-  copy:
-    src: "{{ item.src_key }}"
-    dest: "{{ item.dest_key }}"
-    mode: '0600'
-  with_items: "{{ ssh_keys }}"
-  tags:
-    - ssh
-
-- name: Copy SSH public keys
-  copy:
-    src: "{{ item.src_pub_key }}"
-    dest: "{{ item.dest_pub_key }}"
-    mode: '0644'
-  with_items: "{{ ssh_keys }}"
-  tags:
-    - ssh
-
-- name: Start SSH agent and add keys
-  shell: |
-    eval $(ssh-agent -s)
-    {% for key in ssh_keys %}
-    ssh-add {{ key.dest_key }}
-    {% endfor %}
-  tags:
-    - ssh
-
-- name: Change ownership of .ssh directory and keys
-  file:
-    path: "{{ lookup('env', 'HOME') }}/.ssh"
-    state: directory
-    owner: "{{ lookup('env', 'USER') }}"
-    recurse: yes
-  tags:
-    - ssh
+- name: Run npm install in the front directory
+  command: npm install
+  args:
+    chdir: "{{ ansible_env.HOME }}/projects/front"
+  tags: tomato
