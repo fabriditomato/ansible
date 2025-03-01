@@ -1,89 +1,70 @@
-- name: Debug SSH config for tomatoai
-  shell: cat {{ ansible_env.HOME }}/.ssh/config
-  register: ssh_config_content
-  tags: tomato
-
-- name: Show SSH config for tomatoai
-  debug:
-    var: ssh_config_content.stdout_lines
-  tags: tomato
-
-- name: Debug tomatoai SSH key permissions
-  shell: ls -l {{ ansible_env.HOME }}/.ssh/tomatoai_rsa
-  register: ssh_key_permissions
-  tags: tomato
-
-- name: Show tomatoai SSH key permissions
-  debug:
-    var: ssh_key_permissions.stdout_lines
-  tags: tomato
-
-- name: Test SSH connection to GitHub for tomatoai
-  shell: ssh -T git@github.com-tomatoai
-  register: ssh_test
-  ignore_errors: yes
-  tags: tomato
-
-- name: Debug SSH test output for tomatoai
-  debug:
-    var: ssh_test
-  tags: tomato
-
-- name: Ensure tomato directory exists
+- name: Ensure projects directory exists
   file:
-    path: "{{ ansible_env.HOME }}/tomato"
+    path: "{{ ansible_env.HOME }}/projects"
     state: directory
     mode: '0755'
   tags: tomato
 
 - name: Clone tomato-2.0 backend repository
   git:
-    repo: 'git@github.com-tomatoai:tomatoai-dev/tomato-2.0.git'
-    dest: "{{ ansible_env.HOME }}/tomato/back"
+    repo: 'git@github.com:tomatoai-dev/tomato-2.0.git'
+    dest: "{{ ansible_env.HOME }}/projects/back"
     version: dev
     accept_hostkey: yes
   environment:
     GIT_SSH_COMMAND: "ssh -vvv"
-  register: git_clone_result
-  tags: tomato
-
-- name: Debug Git clone result for tomato backend
-  debug:
-    var: git_clone_result
   tags: tomato
 
 - name: Clone private Gist for backend .env file
   git:
-    repo: 'git@gist.github.com-tomatoai:ddc96d31c7b4e12bc6036357b42cc0ad.git'
-    dest: "{{ ansible_env.HOME }}/tomato/back/gist_env"
+    repo: 'git@gist.github.com:ddc96d31c7b4e12bc6036357b42cc0ad.git'
+    dest: "{{ ansible_env.HOME }}/projects/back/gist_env"
     version: main
     accept_hostkey: yes
   environment:
     GIT_SSH_COMMAND: "ssh -vvv"
-  register: gist_clone_result
-  tags: tomato
-
-- name: Debug Gist clone result
-  debug:
-    var: gist_clone_result
   tags: tomato
 
 - name: Copy .env file from cloned Gist to backend
   command: cp gist_env/.env backend/.env
   args:
-    chdir: "{{ ansible_env.HOME }}/tomato/back"
+    chdir: "{{ ansible_env.HOME }}/projects/back"
   tags: tomato
 
 - name: Remove Gist directory
   file:
-    path: "{{ ansible_env.HOME }}/tomato/back/gist_env"
+    path: "{{ ansible_env.HOME }}/projects/back/gist_env"
     state: absent
   tags: tomato
+
+- name: Checkout staging branch
+  command: git checkout staging
+  args:
+    chdir: "{{ ansible_env.HOME }}/projects/back"
+  register: git_checkout_result
+  changed_when: "'Already on' not in git_checkout_result.stdout"
+  tags: tomato
+
+- name: Pull latest changes from staging
+  command: git pull origin staging
+  args:
+    chdir: "{{ ansible_env.HOME }}/projects/back"
+  register: git_pull_result
+  tags: tomato
+
+- name: Create Python virtual environment
+  command: python3 -m venv .venv
+  args:
+    chdir: "{{ ansible_env.HOME }}/projects/back"
+    creates: "{{ ansible_env.HOME }}/projects/back/.venv"
+  tags:
+    - tomato
+    - venv
 
 - name: Build Docker container without starting
   command: docker-compose build
   args:
-    chdir: "{{ ansible_env.HOME }}/tomato/back"
+    chdir: "{{ ansible_env.HOME }}/projects/back"
   register: docker_build_output
   tags:
     - tomato

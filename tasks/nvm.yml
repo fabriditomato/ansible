@@ -13,22 +13,21 @@
     executable: /bin/bash
   tags: nvm
 
-- name: Install Node.js 20 LTS using NVM
+- name: Install latest LTS Node version using NVM
   shell: |
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    nvm install 20
-    nvm use 20
-    nvm alias default 20
+    nvm install --lts
   args:
     executable: /bin/bash
   tags: nvm
 
-- name: Set default Node version to 20 LTS
+- name: Set default Node version to LTS
   shell: |
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    nvm alias default 20
+    nvm alias default lts/*
   args:
     executable: /bin/bash
   tags: nvm
+
