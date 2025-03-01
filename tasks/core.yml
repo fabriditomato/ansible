@@ -26,7 +26,6 @@
       - tmux
       - neovim
       - fzf
-      - ollama
     state: present
     update_homebrew: yes
   tags:
@@ -45,6 +44,7 @@
       - tableplus
       - termius
       - visual-studio-code
+      - ollama
     state: present
   tags:
     - packages
