@@ -8,6 +8,7 @@
     - { name: 'user.name', value: 'Fabrizio Anichini' }
     - { name: 'user.email', value: 'fabrizioanichini@tomatoai.it' }
     - { name: 'pull.rebase', value: 'false' }
+    - { name: 'push.autoSetupRemote', value: 'true' } 
   tags:
     - git-config
 

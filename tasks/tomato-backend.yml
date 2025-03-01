@@ -53,7 +53,7 @@
   tags: tomato
 
 - name: Create Python virtual environment
-  command: python3 -m venv .venv
+  command: python3.9 -m venv .venv
   args:
     chdir: "{{ ansible_env.HOME }}/projects/back"
     creates: "{{ ansible_env.HOME }}/projects/back/.venv"
