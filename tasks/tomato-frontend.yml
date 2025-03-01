@@ -32,6 +32,18 @@
     state: absent
   tags: tomato
 
+- name: Checkout staging branch
+  command: git checkout staging
+  args:
+    chdir: "{{ ansible_env.HOME }}/projects/front"
+  tags: tomato
+
+- name: Pull latest changes from staging
+  command: git pull origin staging
+  args:
+    chdir: "{{ ansible_env.HOME }}/projects/front"
+  tags: tomato
+
 - name: Run npm install in the front directory
   command: npm install
   args:

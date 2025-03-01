@@ -30,7 +30,7 @@ require("lazy").setup({
 
 	-- VimFugitive
 	require("plugins.fugitive"),
-
+		
 	-- WhichKey
 	require("plugins.whichkey"),
 

@@ -48,17 +48,6 @@ return {
 					},
 				},
 			},
-			pyright = {
-				settings = {
-					python = {
-						venvPath = ".",
-						venv = ".venv",
-						analysis = {
-							extraPaths = { "." },
-						},
-					},
-				},
-			},
 		}
 
 		-- Make sure relevant tools/servers are installed
@@ -156,3 +145,4 @@ return {
 		})
 	end,
 }
+

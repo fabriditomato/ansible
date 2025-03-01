@@ -1,0 +1,34 @@
+- name: Install NVM (Node Version Manager)
+  shell: >
+    curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+  tags: nvm
+
+- name: Load NVM into shell session
+  shell: |
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  args:
+    executable: /bin/bash
+  tags: nvm
+
+- name: Install Node.js 20 LTS using NVM
+  shell: |
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm install 20
+    nvm use 20
+    nvm alias default 20
+  args:
+    executable: /bin/bash
+  tags: nvm
+
+- name: Set default Node version to 20 LTS
+  shell: |
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm alias default 20
+  args:
+    executable: /bin/bash
+  tags: nvm

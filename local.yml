@@ -26,6 +26,10 @@
       tags:
         - git-config
 
+    - include_tasks: tasks/nvm.yml
+      tags:
+        - nvm 
+
     - include_tasks: tasks/tomato-frontend.yml
       tags:
         - tomato
