@@ -26,6 +26,7 @@
       - tmux
       - neovim
       - fzf
+      - ollama
     state: present
     update_homebrew: yes
   tags:

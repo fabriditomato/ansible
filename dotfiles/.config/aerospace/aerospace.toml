@@ -206,3 +206,18 @@ down = 'volume down'
 up = 'volume up'
 shift-down = ['volume set 0', 'mode main']
 
+[[on-window-detected]]
+    if.app-id = 'com.apple.systempreferences'
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.finder'
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.TextEdit'
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.Notes'
+    run = ['layout floating']
