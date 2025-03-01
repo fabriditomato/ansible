@@ -42,6 +42,8 @@
       - google-chrome
       - dbeaver-community
       - tableplus
+      - termius
+      - visual-studio-code
     state: present
   tags:
     - packages
