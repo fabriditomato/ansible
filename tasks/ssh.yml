@@ -39,8 +39,6 @@
     path: "{{ lookup('env', 'HOME') }}/.ssh"
     state: directory
     owner: "{{ lookup('env', 'USER') }}"
-    group: "{{ lookup('env', 'USER') }}"
     recurse: yes
   tags:
     - ssh
-
