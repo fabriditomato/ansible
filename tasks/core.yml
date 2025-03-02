@@ -15,6 +15,7 @@
       - librsvg
       - docker-compose
       - python@3.9
+      - harlequin
     state: present
     update_homebrew: yes
   tags:

@@ -1,0 +1,4 @@
+harlequin -a postgres "postgres://docker:docker@127.0.0.1:5432/tomato"
+python manage.py mark_invoices_done
+python manage.py process_invoices
+
