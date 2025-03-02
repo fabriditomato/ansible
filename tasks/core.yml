@@ -47,6 +47,7 @@
       - termius
       - visual-studio-code
       - ollama
+      - caffeine
     state: present
   tags:
     - packages
