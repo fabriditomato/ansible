@@ -4,7 +4,7 @@ journalctl -u gunicorn.service -f
 pip cache purge
 sudo systemctl restart gunicorns
 python manage.py fetch_invoice_xml --restaurant-uuid [uuid]
-python manage.py mark_invoices_done
+python manage.py mark_empty_invoices
 python manage.py print_invoice_issues
 python manage.py set_manual_upload <RESTAURANT_UUID1>
 python manage.py update_xml_counts <RESTAURANT_UUID>
