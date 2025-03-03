@@ -16,6 +16,7 @@
       - docker-compose
       - python@3.9
       - harlequin
+      - logi-options+
     state: present
     update_homebrew: yes
   tags:
