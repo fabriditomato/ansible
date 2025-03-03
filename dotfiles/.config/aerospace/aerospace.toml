@@ -225,3 +225,8 @@ shift-down = ['volume set 0', 'mode main']
 [[on-window-detected]]
     if.app-id = 'com.apple.mail'
     run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'pro.writer.mac'
+    run = ['layout floating']
+
