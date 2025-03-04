@@ -4,7 +4,8 @@ journalctl -u gunicorn.service -f
 pip cache purge
 sudo systemctl restart gunicorn
 python manage.py fetch_invoices_xml --restaurant-uuid [uuid]
- docker exec -it back-web-1 sh
+docker exec -it back-web-1 sh
+python manage.py collectstatic --noinput
 python manage.py mark_empty_invoices
 python manage.py print_invoice_issues
 python manage.py set_manual_upload <RESTAURANT_UUID1>
