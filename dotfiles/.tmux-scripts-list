@@ -2,7 +2,7 @@ harlequin -a postgres "postgres://docker:docker@127.0.0.1:5432/tomato"
 codeselect
 journalctl -u gunicorn.service -f
 pip cache purge
-sudo systemctl restart gunicorns
+sudo systemctl restart gunicorn
 python manage.py fetch_invoice_xml --restaurant-uuid [uuid]
 python manage.py mark_empty_invoices
 python manage.py print_invoice_issues
