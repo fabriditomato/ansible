@@ -17,6 +17,8 @@
       - python@3.9
       - harlequin
       - logi-options+
+      - fd
+      - ripgrep
     state: present
     update_homebrew: yes
   tags:
@@ -63,15 +65,6 @@
   community.general.homebrew_cask:
     name: aerospace
     state: present
-
-# =========================== Core Task: Install codeselect =========================
-- name: Install codeselect
-  ansible.builtin.shell: |
-    curl -sSL https://raw.githubusercontent.com/maynetee/codeselect/main/install.sh | bash
-  args:
-    warn: false
-  tags:
-    - packages 
 
 # =========================== Core Task: Dotfiles =========================
 - name: Copy dotfiles
