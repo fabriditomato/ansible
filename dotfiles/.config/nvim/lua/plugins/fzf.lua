@@ -19,7 +19,7 @@ return {
 		vim.keymap.set("n", "<leader>sf", function()
 			fzf.files({
 				cwd = vim.loop.cwd(),
-				fd_opts = "--hidden --no-ignore-vcs --exclude .git",
+				fd_opts = "--hidden --no-ignore-vcs --exclude .git --exclude .venv",
 			})
 		end, { desc = "Search Files (including hidden)" })
 
@@ -29,8 +29,12 @@ return {
 		-- Search for the word under cursor (or any word you type)
 		vim.keymap.set("n", "<leader>sw", fzf.grep_cword, { desc = "Search Word" })
 
-		-- Live grep in the project
-		vim.keymap.set("n", "<leader>sg", fzf.live_grep, { desc = "Live Grep" })
+		-- Live grep in the project excluding .venv
+		vim.keymap.set("n", "<leader>sg", function()
+			fzf.live_grep({
+				rg_opts = "--hidden --glob '!.git/*' --glob '!.venv/*'",
+			})
+		end, { desc = "Live Grep (excluding .venv)" })
 
 		-- (Optional) Diagnostics search if you have a custom integration or want to leverage LSP diagnostics
 		-- You might need to write a wrapper function if not directly supported.
