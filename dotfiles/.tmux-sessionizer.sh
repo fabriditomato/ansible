@@ -39,6 +39,13 @@ elif [[ $selection == "[SSH]"* ]]; then
 
   session_name="ssh-$label"
 
+  # Create the tmux session
+  if ! tmux has-session -t "$session_name" 2>/dev/null; then
+    tmux new-session -s "$session_name" -d
+    tmux send-keys -t "$session_name" "$ssh_command" C-m
+    tmux set-option -t "$session_name" default-command "$ssh_command"
+  fi
+
 else
   echo "Invalid selection"
   exit 1

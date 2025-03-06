@@ -14,3 +14,9 @@ python manage.py delete_old_notifications
 python manage.py check_expiring_licenses
 python manage.py makemigrations
 python manage.py migrate
+osascript -e 'id of application "iA Writer"'
+sudo vim /etc/systemd/system/gunicorn.service
+sudo vim /etc/nginx/sites-available/tomato
+sudo systemctl reload nginx
+sudo tail -f /var/log/nginx/error.log
+sudo systemctl status gunicorn

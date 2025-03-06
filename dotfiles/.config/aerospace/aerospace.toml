@@ -230,3 +230,7 @@ shift-down = ['volume set 0', 'mode main']
     if.app-id = 'pro.writer.mac'
     run = ['layout floating']
 
+[[on-window-detected]]
+    if.app-id = 'com.google.Chrome'
+    run = ['layout floating']
+
