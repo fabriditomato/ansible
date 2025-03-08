@@ -13,7 +13,6 @@
       - jpeg
       - giflib
       - librsvg
-      - docker-compose
       - python@3.9
       - harlequin
       - logi-options+
