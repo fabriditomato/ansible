@@ -50,6 +50,7 @@
       - visual-studio-code
       - ollama
       - caffeine
+      - notion
     state: present
   tags:
     - packages
