@@ -64,16 +64,15 @@ return {
 				-- Additional tsserver config goes here if desired.
 			},
 			pyright = {
-				-- Additional pyright config goes here if desired, for example:
-				-- settings = {
-				--   python = {
-				--     analysis = {
-				--       autoImportCompletions = true,
-				--       diagnosticMode = "workspace",
-				--       typeCheckingMode = "basic",
-				--     },
-				--   },
-				-- },
+				settings = {
+					python = {
+						analysis = {
+							autoImportCompletions = true,
+							typeCheckingMode = "basic", -- or "strict" if you prefer more detailed analysis
+							diagnosticMode = "workspace",
+						},
+					},
+				},
 			},
 		}
 
