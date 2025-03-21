@@ -51,6 +51,9 @@
       - ollama
       - caffeine
       - notion
+      - proton-mail
+      - spotify
+      - whatsapp
     state: present
   tags:
     - packages
