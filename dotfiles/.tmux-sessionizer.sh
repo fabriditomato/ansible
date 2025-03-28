@@ -61,7 +61,7 @@ if ! tmux has-session -t "$session_name" 2>/dev/null; then
     # Custom setup for "/Users/fabrizioanichini/projects/back"
     if [[ "$session_path" == "/Users/fabrizioanichini/projects/back" ]]; then
       tmux rename-window -t "$session_name":1 "server"
-      tmux send-keys -t "$session_name":1 "git pull && docker-compose up" C-m
+      tmux send-keys -t "$session_name":1 "git pull && docker compose up" C-m
 
       tmux new-window -t "$session_name" -c "$session_path" -n "dev"
       if [[ -d "$session_path/.venv" ]]; then
