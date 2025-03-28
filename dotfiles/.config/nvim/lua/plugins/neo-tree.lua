@@ -8,6 +8,7 @@ return {
 	},
 	config = function()
 		require("neo-tree").setup({
+			close_if_last_window = true,
 			filesystem = {
 				filtered_items = {
 					hide_dotfiles = false,
@@ -21,21 +22,30 @@ return {
 				position = "right",
 				width = 35,
 				mappings = {
-					-- 🔹 NetRW-Like Mappings
-					["<CR>"] = "open", -- Enter opens file/directory
-					["-"] = "navigate_up", -- Go up one directory (like `-` in NetRW)
-					["a"] = { "add", config = { show_path = "relative" } }, -- Create file/directory
-					["d"] = "delete", -- Delete file/directory
-					["r"] = "rename", -- Rename file/directory
-					["y"] = "copy", -- Yank file/directory (copy)
-					["x"] = "cut_to_clipboard", -- Cut (like `d` in NetRW)
-					["p"] = "paste_from_clipboard", -- Paste (like `p` in NetRW)
-					["q"] = "close_window", -- Close Neo-tree (like `q` in NetRW)
-					["R"] = "refresh", -- Refresh the file tree
+					["<CR>"] = "open",
+					["-"] = "navigate_up",
+					["a"] = { "add", config = { show_path = "relative" } },
+					["d"] = "delete",
+					["r"] = "rename",
+					["y"] = "copy",
+					["x"] = "cut_to_clipboard",
+					["p"] = "paste_from_clipboard",
+					["q"] = "close_window",
+					["R"] = "refresh",
+				},
+			},
+			event_handlers = {
+				{
+					event = "file_open_requested",
+					handler = function()
+						-- Auto-close Neo-tree when opening a file
+						require("neo-tree.command").execute({ action = "close" })
+					end,
 				},
 			},
 		})
 
+		-- Manual toggle
 		vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true })
 	end,
 }

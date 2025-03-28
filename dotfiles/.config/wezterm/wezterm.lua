@@ -6,7 +6,7 @@ config.color_scheme = "Ubuntu"
 
 config.font = wezterm.font("CaskaydiaMono Nerd Font Mono")
 
-config.font_size = 17
+config.font_size = 19
 
 config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
