@@ -1,5 +1,5 @@
 Tomato-docker: ssh -i ~/.ssh/tomatoai_rsa root@164.90.170.238
-Tomato-devasto: ssh -i ~/.ssh/tomatoai_rsa root@3.70.248.173
+Tomato-devasto: ssh -i ~/.ssh/tomatoai_rsa root@3.122.233.94
 Tomato-potato: ssh -i ~/.ssh/tomatoai_rsa root@63.176.59.149
 Tomato-stagno: ssh -i ~/.ssh/tomatoai_rsa root@134.122.90.109
 Tomato-staging: ssh -i ~/.ssh/tomatoai_rsa root@164.90.226.131

@@ -53,6 +53,7 @@
       - proton-mail
       - spotify
       - whatsapp
+      - postman
     state: present
   tags:
     - packages
