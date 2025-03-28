@@ -9,7 +9,6 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
 		"hrsh7th/cmp-nvim-lsp",
-		"nvimtools/none-ls.nvim",
 	},
 	config = function()
 		vim.diagnostic.config({
@@ -87,9 +86,6 @@ return {
 				end,
 			},
 		})
-
-		-- null-ls is still set up, just no formatters defined
-		require("null-ls").setup({})
 
 		-- Native indentation on save for Python files
 		vim.api.nvim_create_autocmd("BufWritePre", {
