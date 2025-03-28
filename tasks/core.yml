@@ -14,7 +14,6 @@
       - giflib
       - librsvg
       - python@3.9
-      - harlequin
       - logi-options+
       - fd
       - ripgrep
@@ -63,11 +62,30 @@
   community.general.homebrew_tap:
     name: nikitabobko/tap
     state: present
+  tags:
+    - packages
 
 - name: Install Aerospace window manager
   community.general.homebrew_cask:
     name: aerospace
     state: present
+  tags:
+    - packages
+
+# =========================== Core Task: Lazysql  =========================
+- name: Add tap Lazysql
+  community.general.homebrew_tap:
+    name: jorgerojas26/lazysql 
+    state: present
+  tags:
+    - packages
+
+- name: Install Lazysql
+  community.general.homebrew:
+    name: lazysql
+    state: present
+  tags:
+    - packages
 
 # =========================== Core Task: Dotfiles =========================
 - name: Copy dotfiles

@@ -9,7 +9,7 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
 		"hrsh7th/cmp-nvim-lsp",
-		"nvimtools/none-ls.nvim", -- Added none-ls for formatting
+		"nvimtools/none-ls.nvim", -- still loaded, not formatting
 	},
 	config = function()
 		vim.diagnostic.config({
@@ -65,7 +65,6 @@ return {
 			"lua-language-server",
 			"typescript-language-server",
 			"pyright",
-			"black",
 		}
 
 		require("mason-tool-installer").setup({
@@ -82,23 +81,15 @@ return {
 			},
 		})
 
-		local null_ls = require("null-ls")
+		-- null-ls is still set up, just no formatters defined
+		require("null-ls").setup({})
 
-		null_ls.setup({
-			sources = {
-				null_ls.builtins.formatting.black,
-			},
-			on_attach = function(client, bufnr)
-				if client.supports_method("textDocument/formatting") then
-					vim.api.nvim_clear_autocmds({ group = "format_on_save", buffer = bufnr })
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						group = vim.api.nvim_create_augroup("format_on_save", { clear = true }),
-						buffer = bufnr,
-						callback = function()
-							vim.lsp.buf.format({ bufnr = bufnr })
-						end,
-					})
-				end
+		-- Native indentation on save for Python files
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			group = vim.api.nvim_create_augroup("auto_indent_on_save", { clear = true }),
+			pattern = "*.py",
+			callback = function()
+				vim.cmd("normal! gg=G")
 			end,
 		})
 
