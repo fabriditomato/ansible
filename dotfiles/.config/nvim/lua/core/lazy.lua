@@ -22,9 +22,6 @@ require("lazy").setup({
 	-- Core
 	"tpope/vim-sleuth",
 
-	-- Greeter
-	require("plugins.greeter"),
-
 	-- Git signs
 	require("plugins.gitsigns"),
 
