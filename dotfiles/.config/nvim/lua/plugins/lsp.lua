@@ -9,7 +9,7 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
 		"hrsh7th/cmp-nvim-lsp",
-		"nvimtools/none-ls.nvim", -- still loaded, not formatting
+		"nvimtools/none-ls.nvim",
 	},
 	config = function()
 		vim.diagnostic.config({
@@ -41,7 +41,14 @@ return {
 
 		local servers = {
 			lua_ls = {
-				settings = { Lua = { completion = { callSnippet = "Replace" } } },
+				settings = {
+					Lua = {
+						completion = { callSnippet = "Replace" },
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+				},
 			},
 			tsserver = {},
 			pyright = {

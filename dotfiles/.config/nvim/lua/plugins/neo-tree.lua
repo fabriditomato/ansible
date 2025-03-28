@@ -3,7 +3,7 @@ return {
 	branch = "v3.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		"nvim-tree/nvim-web-devicons", -- Optional, for file icons
+		"nvim-tree/nvim-web-devicons",
 		"MunifTanjim/nui.nvim",
 	},
 	config = function()
@@ -14,7 +14,7 @@ return {
 					hide_gitignored = false,
 					hide_by_name = { ".DS_Store", "node_modules" },
 				},
-				follow_current_file = { enabled = true }, -- ✅ Fixed syntax for Neo-tree v3.x
+				follow_current_file = { enabled = true },
 				use_libuv_file_watcher = true,
 			},
 			window = {
@@ -36,7 +36,6 @@ return {
 			},
 		})
 
-		-- ✅ Global mapping for <leader>e to toggle Neo-tree (like NetRW `:Explore`)
 		vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true })
 	end,
 }

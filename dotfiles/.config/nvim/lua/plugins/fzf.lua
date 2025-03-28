@@ -4,7 +4,7 @@ return {
 		local fzf = require("fzf-lua")
 		fzf.setup({
 			files = {
-				fd_opts = "--hidden --no-ignore --exclude .git --exclude venv --exclude .venv --exclude staticfiles --exclude node_modules",
+				fd_opts = "--type f --hidden --no-ignore --exclude .git --exclude venv --exclude .venv --exclude staticfiles --exclude node_modules",
 			},
 			grep = {
 				rg_opts = "--hidden --no-ignore --glob '!.git/*' --glob '!node_modules/*' --glob '!venv/*' --glob '!.venv/*' --glob '!staticfiles/*'",
@@ -34,7 +34,7 @@ return {
 		vim.keymap.set("n", "<leader>sf", function()
 			fzf.files({
 				cwd = vim.loop.cwd(),
-				fd_opts = "--hidden --no-ignore --exclude .git --exclude node_modules --exclude venv --exclude .venv --exclude staticfiles",
+				fd_opts = "--type f --hidden --no-ignore --exclude .git --exclude node_modules --exclude venv --exclude .venv --exclude staticfiles",
 				previewer = "builtin",
 			})
 		end, { desc = "Search Files (including hidden, respecting .gitignore)" })
