@@ -17,6 +17,7 @@
       - logi-options+
       - fd
       - ripgrep
+      - cbonsai
     state: present
     update_homebrew: yes
   tags:
