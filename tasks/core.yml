@@ -89,6 +89,25 @@
   tags:
     - packages
 
+# =========================== Core Task: AWS CLI =========================
+- name: Download AWS CLI v2 installer
+  get_url:
+    url: https://awscli.amazonaws.com/AWSCLIV2.pkg
+    dest: /tmp/AWSCLIV2.pkg
+    mode: '0644'
+  tags:
+    - aws
+    - packages
+
+- name: Install AWS CLI v2
+  become: yes
+  command: installer -pkg /tmp/AWSCLIV2.pkg -target /
+  args:
+    creates: /usr/local/bin/aws
+  tags:
+    - aws
+    - packages
+
 # =========================== Core Task: Dotfiles =========================
 - name: Copy dotfiles
   copy:
