@@ -24,3 +24,6 @@ export EDITOR=vim && crontab -e
 docker logs -f tomato-docker-web-1
 tail -f /var/log/eb-docker/containers/eb-current-app/eb-stdouterr.log
 docker compose -f docker-compose-DO.yml up
+aws s3 cp ./function-with-libs.zip s3://664418966159-lambda-deployments/invoices-ade.zip
+aws lambda update-function-code --function-name invoices-ade --s3-bucket 664418966159-lambda-deployments --s3-key invoices-ade.zip --region eu-central-1
+aws lambda invoke --function-name invoices-ade --payload file://test-event.json --cli-binary-format raw-in-base64-out response.json
